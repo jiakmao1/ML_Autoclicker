@@ -1,0 +1,597 @@
+<BasicLabel@Label>:
+    color:0,0,0,1
+    font_size:12
+    size_hint_x:None
+    canvas:
+        Color:
+            rgba:0.6,0.6,0.6,0.8
+        Line:
+            width:1
+            rectangle:self.x,self.y,self.width,self.height
+            
+<RadioLabel@Label>:
+    size_hint:None,None
+    size:self.width,22
+    font_size:12
+    color:0,0,0,1
+
+<RadioBox@CheckBox>:
+    allow_no_selection:False
+    size_hint:None,None
+    size:22,22
+    color:0.4,0.4,0.4,1
+
+<RowLabel@Label>:
+    color:0,0,0,1
+    font_size:12
+    size_hint:None,None 
+    size:10,22
+
+<RowTextInput@TextInput+HoverBehavior>:
+    font_size:11
+    size_hint_x:None
+    width:33 
+    pos_hint:{'center_y':0.5}
+    input_filter:"int"
+    focus:True
+    multiline:False
+    write_tab:False
+    text:"0"
+    padding:4,4
+    base_direction:"rtl"
+    canvas.after:
+        Color:
+            rgba:0.4,0.4,0.4,1
+        Line:
+            width:1 if self.hovered and not self.disabled else 0.01
+            rectangle:self.x,self.y,self.width,self.height
+
+<MainButtons@Button+HoverBehavior>:
+    color:0.1,0.1,0.1,1
+    background_color:2,2,2,1
+    background_down:""
+    font_size:18
+    canvas.before:
+        Color:
+            rgba:0.4,0.4,0.4,0.8
+        Line:
+            width:1.5 if self.hovered else 0.01
+            rectangle:self.x,self.y,self.width,self.height
+<SSButtons@ToggleButton+HoverBehavior>:
+    color:0.1,0.1,0.1,1
+    background_color:[2,2,2,1] if not self.state=="down" else [0.6,0.6,0.6,0.8]
+    background_down:""
+    font_size:18
+    canvas.before:
+        Color:
+            rgba:0.4,0.4,0.4,0.8
+        Line:
+            width:2.25 if self.hovered else 0.01
+            rectangle:self.x,self.y,self.width,self.height
+<AnotherBox@BoxLayout>:
+    spacing:2
+
+<SpinOption>:
+    background_normal:""
+    background_color:[0.9,0.9,0.9,1]
+    color:0,0,0,1
+    size_hint:None,None
+    size:50,25
+<hoverButton@Button+HoverBehavior>:
+    color:0,0,0,1
+    font_size:12
+    size_hint:None,None
+    background_normal:""
+    background_down:""
+    background_color:[0.8,0.8,0.8,1] if self.state == "normal" else [0.6,0.6,0.6,0.8]
+    size:50,25
+    canvas.before:
+        Color:
+            rgba:0.4,0.4,0.4,0.8
+        Line:
+            width:2.25 if self.hovered else 1.5
+            rectangle:self.x,self.y,self.width,self.height
+<PopWindow>:
+    cancelbutton:cancelbutton.__self__
+    auto_dismiss:False
+    titname:root.titname
+    title:root.titname
+    title_color:1,1,1,1
+    separator_color:0.6,0.6,0.6,0.8
+    title_align:"center"
+    size_hint:None,None
+    size:400,200
+    on_open:root.passActiveValue(True)
+    on_dismiss:root.passActiveValue(False)
+    FloatLayout:
+        id:popupwindow
+        canvas:
+            Color:
+                rgba:0.8,0.8,0.8,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            id:labelid
+            labelpopupname:root.labelpopupname
+            text:root.labelpopupname
+            halign:"center"
+            size_hint:None,None
+            size:self.width,self.height
+            pos_hint:{"center_x":0.5,"center_y":0.5}
+            color:0,0,0,1
+        hoverButton:
+            id:cancelbutton
+            text:"Cancel"
+            pos:0.875*(root.width+root.x),root.y+self.height
+            on_release:root.dismiss()
+<ExitWindow>:
+    auto_dismiss:False
+    titname:root.titname
+    title:root.titname
+    title_color:1,1,1,1
+    separator_color:0.6,0.6,0.6,0.8
+    title_align:"center"
+    size_hint:None,None
+    size:400,200
+    on_open:root.passActiveValue(True)
+    on_dismiss:root.passActiveValue(False)
+    FloatLayout:
+        id:popupwindow
+        canvas:
+            Color:
+                rgba:0.8,0.8,0.8,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        Label:
+            id:labelid
+            labelpopupname:root.labelpopupname
+            text:root.labelpopupname
+            size_hint:None,None
+            size:self.width,self.height
+            pos_hint:{"center_x":0.5,"center_y":0.5}
+            color:0,0,0,1
+        hoverButton:
+            id:cancelbutton
+            text:"Cancel"
+            pos:0.875*(root.width+root.x),root.y+self.height
+            on_release:root.dismiss()
+        hoverButton:
+            id:yesbutton
+            text:"Yes"
+            pos:0.425*(root.width+root.x),root.y+self.height
+            on_release:root.exitSave()
+        hoverButton:
+            id:nobutton
+            text:"No"
+            pos:0.65*(root.width+root.x),root.y+self.height
+            on_release:app.stop()
+<ActButton@Button+ActionItem+HoverBehavior>:
+    font_size:12
+    text_size:self.width-10,16
+    halign:"left"
+    color:0,0,0,1
+    background_disabled_normal:""
+    background_down:""
+    background_color:[2.2,2.2,2.2,1] if not self.state=="down" else [0.6,0.6,0.6,0.8]
+    canvas.before:
+        Color:
+            rgba:0.8,0.8,0.8,1
+        Rectangle:
+            size:self.size
+            pos:self.pos   
+        Color:
+            rgba:0.6,0.6,0.6,1
+        Line:
+            width:2.75 if self.hovered else 1
+            rectangle:self.x,self.y,self.width,self.height
+<Test>:
+    cols:1
+    size:root.width,root.height
+    orientation:"vertical"
+    id:rootBox
+    canvas:
+        Color:
+            rgba:0.8,0.8,0.8,1
+        Rectangle:
+            pos:self.pos
+            size:self.size
+    ScrollView:
+        id:MainBox
+        viewclass:'Row'
+        size_hint:0.95,0.58
+        pos_hint:{"x":(root.width-self.width)/(2*root.width),"y":(root.height-self.height)/(1.25*root.height)}
+        do_scroll_x:False
+        scroll_type:["bars"]
+        bar_color:0.4,0.4,0.4,1
+        bar_width:10
+        bar_inactive_color:0.4,0.4,0.4,0.5
+        canvas:
+            Color:
+                rgba:0.6,0.6,0.6,0.8
+            Line:
+                width:2.5
+                rectangle:self.x,self.y,self.width,self.height
+            Line:
+                width:1
+                points:[71,root.height,71,0]
+            Line:
+                width:1
+                points:[227,root.height,227,0]
+            Line:
+                width:1
+                points:[277,root.height,277,0]
+            Line:
+                width:1
+                points:[337,root.height,337,0]
+            Line:
+                width:1
+                points:[557,root.height,557,0]
+        Table:
+            id:MainTable
+            orientation: "vertical"
+            size_hint_y:None
+            height:self.minimum_height
+            padding:15,10            
+    BoxLayout:
+        orientation:"horizontal"
+        id:captions
+        size_hint:0.95,None
+        height:22
+        pos_hint:{"x":(root.width-MainBox.width)/(2*root.width),"y":1-(root.height-1.53*MainBox.height)/(1.25*root.height)}
+        BasicLabel:
+            text:"On/Off"
+            width:50.8
+        BasicLabel:
+            text:"Coord. Input"
+            width:156
+        BasicLabel:
+            text:"# clicks"
+            width:50
+        BasicLabel:
+            text:"Click type"
+            width:60
+        BasicLabel:
+            text:"Delay between clicks"
+            width:220
+        BasicLabel:
+            text:"Delay between actions"
+            width:222
+    BoxLayout:
+        orientation:"horizontal"
+        size_hint:0.05,None
+        height:22
+        pos_hint:{"right":1-(root.width-MainBox.width)/(2*root.width),"y":(root.height-MainBox.height-1.42*self.height)/(1.25*root.height)}
+        Button:
+            text:"+"
+            size_hint:0.05,None
+            height:22
+            on_release:
+                MainTable.addRow()
+        Button:
+            text:"-"
+            size_hint:0.05,None
+            height:22
+            on_release:
+                MainTable.delRow()
+    BoxLayout:
+        orientation:"horizontal"
+        size_hint:None,None
+        stoplabel:root.stoplabel
+        startlabel:root.startlabel
+        width:625
+        height:24
+        pos_hint:{"x":(root.width-MainBox.width)/(2*root.width),"y":(root.height-MainBox.height-1.42*self.height)/(1.25*root.height)}         
+        BoxLayout:
+            BoxLayout:
+                spacing:2
+                RadioBox:
+                    id:r1
+                    group:"radio"
+                    on_active:
+                        root.getValue()
+                        MainTable.cursorLocation()
+                RadioLabel:
+                    text:"Cursor Location"
+            BoxLayout:
+                spacing:2
+                RadioBox:
+                    id:r2
+                    group:"radio"
+                    on_active:
+                        root.getValue()
+                        MainTable.cursorLocation()
+                RadioLabel:
+                    text:"Pick Location"
+        BoxLayout:
+            RadioBox:
+                id:r3
+                group:"radio2"
+                on_active:
+                    root.getValue()
+                    MainTable.cursorLocation()
+            RadioLabel:
+                text:"Until stopped"
+            RadioBox:
+                id:r4
+                group:"radio2"
+                on_active:
+                    root.getValue()
+                    MainTable.cursorLocation()
+            RadioLabel:
+                text:"Repeat"
+                size_hint_x:None
+                width:50
+            RowTextInput:
+                id:rlooptimes
+                name:"looptimes"
+                text:"1"
+                disabled: not r4.active
+                size_hint_x:None
+                width:50
+                on_text:root.giveNumber(self.text,self.name)
+
+            RadioLabel:
+                text:"time(s)"
+                size_hint_x:None
+                width:50
+    GridLayout:
+        cols:2
+        size_hint:0.8,0.2
+        pos_hint:{"x":(root.width-self.width)/(2*root.width),"y":1-(root.height-self.height)/(0.83*root.height)}
+        canvas:
+            Color:
+                rgba:0.6,0.6,0.6,0.8
+            Line:
+                width:2.5
+                rectangle:self.x,self.y,self.width,self.height
+        SSButtons:
+            text:root.startlabel
+            group:"Start/Stop"
+            id:startbut
+            allow_no_selection:False
+            on_release:
+                root.start()
+                root.hotkeyboolpress()
+        SSButtons:
+            text:root.stoplabel
+            group:"Start/Stop"
+            id:stopbut
+            on_release:
+                self.state="normal"
+                root.stop()
+
+        MainButtons:
+            text:"Choose hotkey"
+            background_color:[2,2,2,1] if not self.state=="down" else [0.6,0.6,0.6,0.8]
+            background_down:""
+            on_release:root.set_hotkey()
+        MainButtons:
+            text:"Instructions/Information"
+            background_color:[2,2,2,1] if not self.state=="down" else [0.6,0.6,0.6,0.8]
+            background_down:""
+            on_release:root.giveInfo()
+    ActionBar:
+        pos_hint:{"top":1,"center_x":0.501}
+        height:22
+        canvas:
+            Color:
+                rgba:0.8,0.8,0.8,1
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        ActionView:
+            pos_hint:{"x":0}
+            ActionPrevious:
+                size_hint_x:None
+                width:0
+                app_icon_width: 0.1
+                with_previous:False
+            ActionGroup:
+                text:"   File   "
+                font_size:12
+                color:0,0,0,1
+                background_normal:""
+                background_disabled:""
+                background_color: [0.8,0.8,0.8,1] if self.state == "normal" else [0.6,0.6,0.6,0.8]
+                id:filebut
+                mode:"spinner"
+                ActButton:
+                    text:"Open"
+                    size_hint:None,None
+                    size:filebut.width*3,filebut.height
+                    on_release: 
+                        root.openFile()
+                ActButton:
+                    text:"Save"
+                    size_hint:None,None
+                    size:filebut.width*3,filebut.height
+                    on_release:root.save()
+                ActButton:
+                    text:"Save as..."
+                    size_hint:None,None
+                    size:filebut.width*3,filebut.height*0.08
+                    on_release:root.saveAsFile()
+            ActionGroup:
+                ActionLabel:
+                    text:"Config file not set..."
+                    id:FileLabel
+                    font_size:12
+                    color:0,0,0,1
+                    background_color:0.8,0.8,0.8,1
+                    canvas:
+                        Color:
+                            rgba:0,0,0,1
+                        Line:
+                            width:1
+                            rectangle:self.x,self.y,self.width,self.height
+
+<Row>:
+    size_hint:None,None
+    size:700,22
+    default_size:700,22
+    txt:root.txt
+    uniqID:root.uniqID
+    id:root.uniqID
+    spacing:5
+    BoxLayout:
+        spacing:25
+        size_hint:None,None
+        size:196,22
+        BoxLayout:
+            spacing:10
+            size_hint:None,None
+            size:20,20
+            Label:
+                text:root.txt
+                color:0,0,0,1
+                font_size:12
+                size_hint_x:0.04
+                id:MainLabel
+            CheckBox:
+                id:Checkbox
+                name:"checkbox"
+                active:True
+                size_hint:None,None
+                size:15,15
+                pos_hint:{"center_x":0.5,"center_y":0.5}
+                on_state:
+                    root.giveNumber(self.active,self.name,root.ids.MainLabel.text)
+                    root.cursorLocation()
+                canvas:
+                    Color:
+                        rgba:0,0,0,1
+                    Line:
+                        width:1
+                        rectangle:self.x,self.y,self.width,self.height
+        BoxLayout:
+            spacing:2
+            size_hint:None,None
+            size:150,22
+            default_size:150,25
+            Button:
+                text:"Select"
+                default_size:50,25
+                disabled: False if Checkbox.active== True else True
+                font_size:12
+                on_release:root.picklocation()
+                background_disabled_normal:""
+                background_down:""
+                background_color:0.6,0.6,0.6,1
+                id:selectButton
+            BoxLayout:
+                font_size:12
+                size_hint_x:None
+                AnotherBox:
+                    RowTextInput:
+                        name:"mousex"
+                        id:mousex
+                        disabled: not Checkbox.active
+                        on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+
+                    RowLabel:
+                        text:"x"
+                AnotherBox:
+                    RowTextInput:
+                        name:"mousey"
+                        id:mousey
+                        disabled: not Checkbox.active
+                        on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                    RowLabel:
+                        text:"y"
+    BoxLayout:
+        size_hint:None,None
+        size:105,22
+        spacing:13
+        RowTextInput:
+            name:"clicks"
+            disabled:not Checkbox.active
+            text:"1"
+            on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+        MySpinner:
+            name:"spinner"
+            size_hint:None,None
+            size:50,22
+            font_size:12
+            color:0,0,0,1
+            background_normal:""
+            background_disabled_normal:""
+            background_color:[0.9,0.9,0.9,1] if not self.disabled else [0.6,0.6,0.6,0.8]
+            disabled:not Checkbox.active
+            text:"Left"
+            values:["Left","Right"]
+            on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+            canvas:
+                Color:
+                    rgba:0.5,0.5,0.5,0.8
+                Line:
+                    width:2.25 if self.hovered else 1.5
+                    rectangle:self.x,self.y,self.width,self.height
+    BoxLayout:
+        spacing:15
+        BoxLayout:
+            size_hint_x:None
+            width:200
+            AnotherBox:
+                RowTextInput:
+                    name:"hour1"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"h"
+            AnotherBox:
+                RowTextInput:
+                    name:"minute1"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"m"
+            AnotherBox:
+                RowTextInput:
+                    name:"second1"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"s"
+            AnotherBox:
+                spacing:5
+                RowTextInput:
+                    name:"millis1"
+                    text:"500"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"ms"
+        BoxLayout:
+            size_hint_x:None
+            width:200
+            AnotherBox:
+                RowTextInput:
+                    name:"hour2"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"h"
+            AnotherBox:
+                RowTextInput:
+                    name:"minute2"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"m"
+            AnotherBox:
+                RowTextInput:
+                    name:"second2"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"s"
+            AnotherBox:
+                spacing:5
+                RowTextInput:
+                    name:"millis2"
+                    disabled:not Checkbox.active
+                    on_text:root.giveNumber(self.text,self.name,root.ids.MainLabel.text)
+                RowLabel:
+                    text:"ms"           
