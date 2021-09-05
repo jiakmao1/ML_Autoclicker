@@ -13,3 +13,13 @@ ML Autoclicker is a program designed to allow the user to create a loop of actio
 * Two modes of clicking: following the mouse, or at specified locations; toggleable in the lower left
 * Select desired cursor locations either by typing them in or clicking the select button for each respective action/step
 * Save/open configuration files for easy usage between sessions
+
+
+### Notes
+If you choose to download the python and kivy files, make sure you also download the logo.png file and make sure all of the files are in the same folder. Also, make sure python 3 is used as this program will probably not function with python 2
+
+Python packages that might need to be installed(easiest way generally is using pip) :
+* Kivy (for GUI)
+* pynput (to control keyboard and mouse)
+* plyer (to access the os' filechooser)
+* ctypes (to control DPIAwareness on **Windows** for different resolution screens)
